@@ -33,8 +33,6 @@ import {
 import { getUser } from '../../services/userData/action';
 
 const App = () => {
-  // запрос массива ингридиентов в юзэффекте диспатчится экшен на запрос массива ингридиентов,
-
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -42,7 +40,9 @@ const App = () => {
   const isLoading = useSelector(selectIsLoading);
   const errorMessage = useSelector(selectError);
 
+  // 🔑 ключевая штука для модалок
   const background = location.state?.background;
+
   const onCloseFn = () => {
     navigate(-1);
   };
@@ -58,13 +58,16 @@ const App = () => {
 
       {errorMessage && <div>{errorMessage}</div>}
       {isLoading && <Preloader />}
+
       <>
+        {/* Основные маршруты */}
         <Routes location={background || location}>
           <Route path='/' element={<ConstructorPage />} />
           <Route path='/feed' element={<Feed />} />
           <Route path='/feed/:number' element={<OrderInfo />} />
           <Route path='/ingredients/:id' element={<IngredientDetails />} />
-          {/* защищенный */}
+
+          {/* Только для НЕавторизованных */}
           <Route
             path='/login'
             element={<Protected onlyUnAuth component={<Login />} />}
@@ -81,6 +84,8 @@ const App = () => {
             path='/reset-password'
             element={<Protected onlyUnAuth component={<ResetPassword />} />}
           />
+
+          {/* Только для авторизованных */}
           <Route
             path='/profile'
             element={<Protected component={<Profile />} />}
@@ -93,8 +98,11 @@ const App = () => {
             path='/profile/orders/:number'
             element={<Protected component={<OrderInfo />} />}
           />
+
           <Route path='*' element={<NotFound404 />} />
         </Routes>
+
+        {/* Модальные окна */}
         {background && (
           <Routes>
             <Route
@@ -111,7 +119,11 @@ const App = () => {
             />
             <Route
               path='/profile/orders/:number'
-              element={<FeedOrderModalRoute onClose={onCloseFn} />}
+              element={
+                <Protected
+                  component={<FeedOrderModalRoute onClose={onCloseFn} />}
+                />
+              }
             />
           </Routes>
         )}
