@@ -56,3 +56,5 @@ export const publicOrdersSlice = createSlice({
 
 export const { selectOrders, selectFeed, selectIsLoading, selectError } =
   publicOrdersSlice.selectors;
+
+export default publicOrdersSlice.reducer;

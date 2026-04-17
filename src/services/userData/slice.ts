@@ -90,3 +90,5 @@ export const userDataSlice = createSlice({
 
 export const { selectUserData, selectIsAuth, selectIsLoading, selectError } =
   userDataSlice.selectors;
+
+export default userDataSlice.reducer;

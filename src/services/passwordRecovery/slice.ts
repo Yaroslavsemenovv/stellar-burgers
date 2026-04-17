@@ -79,3 +79,5 @@ export const {
   selectError,
   selectResetAllowed
 } = passwordRecoverySlice.selectors;
+
+export default passwordRecoverySlice.reducer;
