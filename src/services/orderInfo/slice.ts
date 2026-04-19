@@ -46,3 +46,5 @@ export const orderByNumberSlice = createSlice({
 export const { selectIsLoading, selectOrder, selectError } =
   orderByNumberSlice.selectors;
 export const { clearOrder } = orderByNumberSlice.actions;
+
+export default orderByNumberSlice.reducer;

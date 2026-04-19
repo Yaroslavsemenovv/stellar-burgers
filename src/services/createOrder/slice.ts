@@ -50,3 +50,5 @@ export const createOrderSlice = createSlice({
 export const { clearOrderModal } = createOrderSlice.actions;
 export const { selectOrderRequest, selectOrderModalData, selectError } =
   createOrderSlice.selectors;
+
+export default createOrderSlice.reducer;
