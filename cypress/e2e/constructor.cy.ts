@@ -43,9 +43,11 @@ describe('constructor page', () => {
 
   it('opens and closes ingredient modal by close button and overlay', () => {
     cy.get('[data-cy="ingredient-link-main-1"]').click();
-    cy.get('[data-cy="modal"]').should('be.visible');
-    cy.contains('Детали ингредиента').should('be.visible');
-    cy.contains('Биокотлета из марсианской Магнолии').should('be.visible');
+
+    cy.get('[data-cy="modal"]').should('be.visible').within(() => {
+      cy.contains('Детали ингредиента').should('be.visible');
+      cy.contains('Биокотлета из марсианской Магнолии').should('be.visible');
+    });
 
     cy.get('[data-cy="modal-close"]').click();
     cy.get('[data-cy="modal"]').should('not.exist');
